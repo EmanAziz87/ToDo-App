@@ -1,0 +1,20 @@
+.nav-container {
+    width: 400px;
+    height: 100%;
+    background-color: rgb(95, 186, 164);
+}
+
+.nav-add-todo-button {
+    background-color: rgb(108, 219, 191);
+    color: rgb(64, 64, 64);
+    margin: 30px;
+    width: 55px;
+    font-size: 3rem;
+    border-style: none;
+    border-radius: 3rem;
+}
+
+.nav-add-todo-button:hover {
+    background-color: rgb(65, 129, 113);
+    color: rgb(231, 231, 231);
+}
