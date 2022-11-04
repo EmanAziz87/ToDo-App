@@ -1,20 +1,32 @@
-import { storageToDo, thingsToDo } from '../manageToDo/manageToDo';
+import { navContainer, projectManager } from '../displayNavMenu/displayNavMenu';
+import { thingsToDo } from '../manageToDo/manageToDo';
 import './displayToDoCard.css';
+
 
 const mainContent = document.querySelector('#content');
 const toDoCardAreaBackground = document.createElement('article');
 const toDoCardAreaMain = document.createElement('section');
 
+
 function cardArea () {
+    const navAndCardAreaContainer = document.createElement('div');
+
+    navAndCardAreaContainer.classList.add('nav-and-card-area-container');
     toDoCardAreaBackground.classList.add('todo-card-area-background');
     toDoCardAreaMain.classList.add('todo-card-area-main');
-    mainContent.appendChild(toDoCardAreaBackground);
+
+    mainContent.appendChild(navAndCardAreaContainer);
     toDoCardAreaBackground.appendChild(toDoCardAreaMain);
-};
+    navAndCardAreaContainer.appendChild(navContainer);
+    navAndCardAreaContainer.appendChild(toDoCardAreaBackground);
+    
+    projectManager();
+ };
+
 
 function displayToDoCard() {
     (function displayInputtedCards () {
-        for (let i = 0; i < thingsToDo.length; i++ ) {
+        for (let i = thingsToDo.length - 1; i < thingsToDo.length; i++ ) {
             const toDoCard = document.createElement('div');
             const cardContentSubContainer = document.createElement('div');
             const cardNameAndDescription = document.createElement('div');

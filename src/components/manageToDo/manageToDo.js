@@ -1,4 +1,5 @@
 import { displayToDoCard } from "../displayToDoCard/displayToDoCard";
+import './manageToDo.css';
 
 let thingsToDo = [];
 let userInputArr = [];
@@ -27,6 +28,7 @@ function manageToDo() {
             if (!toDoFormVisibility) {
                 toDoFormVisibility = true;
                 const formContainer = document.createElement('form');
+                const exitFormContainer = document.createElement('button');
                 const formFieldSet = document.createElement('fieldset');
                 const formLegend = document.createElement('legend');
         
@@ -41,7 +43,6 @@ function manageToDo() {
                 const toDoPriorityHigh = document.createElement('option');
                 const toDoPriorityMid = document.createElement('option');
                 const toDoPriorityLow = document.createElement('option');
-        
                 const todoSubmitButton = document.createElement('input');
                 
 
@@ -87,12 +88,16 @@ function manageToDo() {
                 toDoPriorityLow.textContent = 'Low';
         
                 formLegend.textContent = 'Add ToDo:';
+                exitFormContainer.textContent = 'X';
                 
                 formContainer.classList.add('form-container');
+                exitFormContainer.classList.add('exit-form-button');
                 formFieldSet.classList.add('form-fieldset');
+                
         
                 navContainer.appendChild(formContainer);
                 formContainer.appendChild(formFieldSet);
+                formContainer.appendChild(exitFormContainer);
                 formFieldSet.appendChild(formLegend);
                 formFieldSet.appendChild(toDoNameLabel);
                 formFieldSet.appendChild(toDoNameInput);
@@ -107,7 +112,7 @@ function manageToDo() {
                 toDoPrioritySelect.appendChild(toDoPriorityLow);
                 formFieldSet.appendChild(todoSubmitButton);
                 
-                todoSubmitButton.addEventListener('click', function(e) {
+                todoSubmitButton.addEventListener('click', function() {
                     if (toDoDescriptionInput.value && toDoNameInput.value && toDoDueDateInput.value && toDoPrioritySelect.value) {
                         userInputArr.push(toDoNameInput.value);
                         userInputArr.push(toDoDescriptionInput.value);
@@ -122,9 +127,15 @@ function manageToDo() {
         
                         console.log(thingsToDo);
                         toDoFormVisibility = false;
-                        thingsToDo = [];
                         userInputArr = [];
                     } 
+                });
+
+                exitFormContainer.addEventListener('click', function() {
+                    while (formContainer.firstChild) {
+                        formContainer.removeChild(formContainer.lastChild);
+                    }
+                    toDoFormVisibility = false;
                 });
             }
         });
