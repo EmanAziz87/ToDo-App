@@ -18,3 +18,8 @@
     background-color: rgb(65, 129, 113);
     color: rgb(231, 231, 231);
 }
+
+.form-fieldset {
+    display: flex; 
+    flex-direction: column;
+}
