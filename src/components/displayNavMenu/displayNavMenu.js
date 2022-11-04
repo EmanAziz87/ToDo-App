@@ -1,9 +1,10 @@
 import './displayNavMenu.css';
 
+
 function displayNavMenu() {
-    const mainContainer = document.querySelector('#content');
     const navContainer = document.createElement('nav');
     const navAddToDoButton = document.createElement('button');
+    const mainContainer = document.querySelector('#content');
 
     navAddToDoButton.textContent = '+';
 
@@ -14,4 +15,6 @@ function displayNavMenu() {
     navContainer.appendChild(navAddToDoButton);
 }
 
-export { displayNavMenu }
+export { 
+    displayNavMenu
+ }
