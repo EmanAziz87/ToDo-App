@@ -2,6 +2,9 @@
     width: 400px;
     height: 100%;
     background-color: rgb(95, 186, 164);
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
 }
 
 .nav-add-todo-button {
@@ -25,24 +28,27 @@
 }
 
 .project-container {
-    background-color: aliceblue;
     display: flex; 
     justify-content: center;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
 }
 
 .default-projects-container {
     width: 250px;
     height: 100px;
-    background-color: rgb(177, 126, 126);
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     display: flex; 
     flex-direction: column;
+    justify-content: space-evenly;
 }
 
 
 .custom-projects-container {
-    width: 200px;
-    height: 100px;
-    background-color: brown;
-    border: 1px solid black;
+    width: 250px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
 }

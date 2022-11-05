@@ -10,13 +10,18 @@ const toDoCardAreaMain = document.createElement('section');
 
 function cardArea () {
     const navAndCardAreaContainer = document.createElement('div');
+    const selectedProjectHeader = document.createElement('p');
 
     navAndCardAreaContainer.classList.add('nav-and-card-area-container');
     toDoCardAreaBackground.classList.add('todo-card-area-background');
     toDoCardAreaMain.classList.add('todo-card-area-main');
+    selectedProjectHeader.classList.add('selected-project-header');
+
+    selectedProjectHeader.textContent = 'Today';
 
     mainContent.appendChild(navAndCardAreaContainer);
     toDoCardAreaBackground.appendChild(toDoCardAreaMain);
+    toDoCardAreaMain.appendChild(selectedProjectHeader);
     navAndCardAreaContainer.appendChild(navContainer);
     navAndCardAreaContainer.appendChild(toDoCardAreaBackground);
     

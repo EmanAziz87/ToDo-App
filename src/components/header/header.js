@@ -1,5 +1,4 @@
-import { storageToDo } from '../../manageToDo/manageToDo';
-import { navMenuReappear } from '../displayNavMenu';
+import { displayNavMenu, navContainer } from '../displayNavMenu';
 import './header.css';
 import svgThreeLines from './three-horizontal-lines-icon.svg';
 
@@ -20,9 +19,7 @@ function header() {
         const navContainer = document.querySelector('.nav-container');
         console.log(navContainer);
         if (!navContainer) {
-            console.log('did we make it')
-            navMenuReappear();
-            storageToDo.addToDo();
+            displayNavMenu();
         } else {
             while (navContainer.firstChild) {
                 navContainer.removeChild(navContainer.lastChild);

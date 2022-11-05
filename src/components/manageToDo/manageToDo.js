@@ -2,6 +2,20 @@ import { displayToDoCard } from "../displayToDoCard/displayToDoCard";
 import './manageToDo.css';
 
 let thingsToDo = [];
+let projectsArr = [
+    {
+        project: 'Today',
+        toDos: []
+    },
+    {
+        project: 'This Week',
+        toDos: []
+    },
+    {
+        project: 'Important',
+        toDos: []
+    }
+];
 let userInputArr = [];
 
 function manageToDo() {
