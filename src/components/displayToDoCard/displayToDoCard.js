@@ -30,53 +30,102 @@ function cardArea () {
     projectManager();
  };
 
-
-function displayToDoCard(currentProjectIndex, projectArr) {
-    for (let i = projectArr[currentProjectIndex].toDos.length - 1; i < projectArr[currentProjectIndex].toDos.length; i++ ) {
-        if ((projectArr[currentProjectIndex].toDos.length) > 0) {
-
-            const toDoCard = document.createElement('div');
-            const cardContentSubContainer = document.createElement('div');
-            const cardNameAndDescription = document.createElement('div');
-            const cardDueDateAndPriority = document.createElement('div');
-            const checkBox = document.createElement('button');
-    
-            toDoCardContainer.appendChild(toDoCard);
-            toDoCard.appendChild(checkBox);
-            toDoCard.appendChild(cardContentSubContainer);
-            cardContentSubContainer.appendChild(cardDueDateAndPriority);
-            cardContentSubContainer.appendChild(cardNameAndDescription)
-
-    
-            checkBox.textContent = '✓';
-            
-            toDoCard.classList.add('todo-card', 'todo-card');
-            checkBox.classList.add(`todo-checkbox-${i}`, 'todo-checkbox');
-            cardContentSubContainer.classList.add('card-content-subcontainer');
-            cardDueDateAndPriority.classList.add('card-due-date-and-priority');
-    
-            let j = 0;
-
-            for (const property in projectArr[currentProjectIndex].toDos[i]) {
-                const toDoCardContent = document.createElement('div');
-                const todoClassNamesArr = ['todo-name', 'todo-due-date'];
-                
-                toDoCardContent.classList.add(todoClassNamesArr[j]);
-                
-                toDoCardContent.textContent = projectArr[currentProjectIndex].toDos[i][property];
-                
-                if (property === 'name') {
-                    cardNameAndDescription.appendChild(toDoCardContent);
+ 
+ 
+ function displayToDoCard(currentProjectIndex, projectArr) {
+     for (let i = projectArr[currentProjectIndex].toDos.length - 1; i < projectArr[currentProjectIndex].toDos.length; i++ ) {
+         if ((projectArr[currentProjectIndex].toDos.length) > 0) {
+             
+             const toDoCard = document.createElement('div');
+             const cardContentSubContainer = document.createElement('div');
+             const cardNameAndDescription = document.createElement('div');
+             const cardDueDateAndPriority = document.createElement('div');
+             const checkBox = document.createElement('button');
+             
+             toDoCardContainer.appendChild(toDoCard);
+             toDoCard.appendChild(checkBox);
+             toDoCard.appendChild(cardContentSubContainer);
+             cardContentSubContainer.appendChild(cardDueDateAndPriority);
+             cardContentSubContainer.appendChild(cardNameAndDescription)
+             
+             
+             checkBox.textContent = '✓';
+             
+             toDoCard.classList.add('todo-card', 'todo-card');
+             checkBox.classList.add(`todo-checkbox-${i}`, 'todo-checkbox');
+             cardContentSubContainer.classList.add('card-content-subcontainer');
+             cardDueDateAndPriority.classList.add('card-due-date-and-priority');
+             
+             let j = 0;
+             
+             for (const property in projectArr[currentProjectIndex].toDos[i]) {
+                 const toDoCardContent = document.createElement('div');
+                 const todoClassNamesArr = ['todo-name', 'todo-due-date'];
+                 
+                 toDoCardContent.classList.add(todoClassNamesArr[j]);
+                 
+                 toDoCardContent.textContent = projectArr[currentProjectIndex].toDos[i][property];
+                 
+                 if (property === 'name') {
+                     cardNameAndDescription.appendChild(toDoCardContent);
+                     
+                    } else {
+                        cardDueDateAndPriority.appendChild(toDoCardContent);
+                    }
                     
-                } else {
-                    cardDueDateAndPriority.appendChild(toDoCardContent);
+                    j++; 
                 }
-                
-                j++; 
             }
         }
     }
-}
+
+    function recycleThroughTodos(currentProjectIndex, projectArr) {
+       for (let i = 0; i < projectArr[currentProjectIndex].toDos.length; i++ ) {
+           if ((projectArr[currentProjectIndex].toDos.length) > 0) {
+   
+               const toDoCard = document.createElement('div');
+               const cardContentSubContainer = document.createElement('div');
+               const cardNameAndDescription = document.createElement('div');
+               const cardDueDateAndPriority = document.createElement('div');
+               const checkBox = document.createElement('button');
+       
+               toDoCardContainer.appendChild(toDoCard);
+               toDoCard.appendChild(checkBox);
+               toDoCard.appendChild(cardContentSubContainer);
+               cardContentSubContainer.appendChild(cardDueDateAndPriority);
+               cardContentSubContainer.appendChild(cardNameAndDescription)
+   
+       
+               checkBox.textContent = '✓';
+               
+               toDoCard.classList.add('todo-card', 'todo-card');
+               checkBox.classList.add(`todo-checkbox-${i}`, 'todo-checkbox');
+               cardContentSubContainer.classList.add('card-content-subcontainer');
+               cardDueDateAndPriority.classList.add('card-due-date-and-priority');
+       
+               let j = 0;
+   
+               for (const property in projectArr[currentProjectIndex].toDos[i]) {
+                   const toDoCardContent = document.createElement('div');
+                   const todoClassNamesArr = ['todo-name', 'todo-due-date'];
+                   
+                   toDoCardContent.classList.add(todoClassNamesArr[j]);
+                   
+                   toDoCardContent.textContent = projectArr[currentProjectIndex].toDos[i][property];
+                   
+                   if (property === 'name') {
+                       cardNameAndDescription.appendChild(toDoCardContent);
+                       
+                   } else {
+                       cardDueDateAndPriority.appendChild(toDoCardContent);
+                   }
+                   
+                   j++; 
+               }
+           }
+       }
+    }
+
 let completeState = false;
 
 function completeToDo() {
@@ -95,13 +144,11 @@ function completeToDo() {
                         completeState = false;
                     }
                 }
-
             });
         } 
-        
     });
 }
 
 completeToDo();
 
-export  { displayToDoCard, cardArea, toDoCardAreaMain, toDoCardContainer, selectedProjectHeader} 
+export  { displayToDoCard, cardArea, toDoCardAreaMain, toDoCardContainer, selectedProjectHeader, recycleThroughTodos} 

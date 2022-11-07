@@ -1,4 +1,4 @@
-import { displayToDoCard, toDoCardContainer } from '../displayToDoCard/displayToDoCard';
+import { displayToDoCard, recycleThroughTodos, toDoCardContainer } from '../displayToDoCard/displayToDoCard';
 import { projectsArr, storageToDo } from '../manageToDo/manageToDo';
 import './displayNavMenu.css';
 
@@ -61,7 +61,7 @@ function projectManager() {
 
     const selectedProjectHeader =  document.querySelector('.selected-project-header');
 
-
+    
     window.addEventListener('click', function(e) {
         if (e.path[0].className === 'project') {
             selectedProjectHeader.textContent = e.target.innerHTML;  
@@ -70,10 +70,11 @@ function projectManager() {
             while (toDoCardContainer.firstChild) {
                 toDoCardContainer.removeChild(toDoCardContainer.lastChild); 
             }
-            displayToDoCard(currentProjectIndex, projectsArr);
+            // displayToDoCard(currentProjectIndex, projectsArr);
+            recycleThroughTodos(currentProjectIndex, projectsArr);
         }
     });
-
+    
     function addCustomProject() {
         const addProjectButton = document.createElement('input');
         addProjectButton.setAttribute('type', 'button');
@@ -97,6 +98,7 @@ function projectManager() {
 
             customProject.textContent = 'temporary name';
             customProject.classList.add('project-naming');
+
             customProjectsContainer.appendChild(customProjectCreationContainer);
             customProjectCreationContainer.appendChild(customProject);
             customProjectCreationContainer.appendChild(customProjectConfirm);

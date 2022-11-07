@@ -2,7 +2,6 @@ import { currentProject } from "../displayNavMenu/displayNavMenu";
 import { displayToDoCard } from "../displayToDoCard/displayToDoCard";
 import './manageToDo.css';
 
-let thingsToDo = [];
 let projectsArr = [
     {
         project: 'Today',
@@ -25,7 +24,7 @@ function manageToDo() {
     function storeInputAsObject(userInputs) {
         const toDoObject = {
             name: userInputs[0],
-            dueDate: userInputs[1],
+            dueDate: userInputs[1]
         }
         return toDoObject;
     }
