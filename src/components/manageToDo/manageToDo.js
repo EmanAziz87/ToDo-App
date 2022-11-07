@@ -25,9 +25,7 @@ function manageToDo() {
     function storeInputAsObject(userInputs) {
         const toDoObject = {
             name: userInputs[0],
-            description: userInputs[1],
-            dueDate: userInputs[2],
-            priority: userInputs[3],
+            dueDate: userInputs[1],
         }
         return toDoObject;
     }
@@ -57,15 +55,9 @@ function manageToDo() {
 
                 const toDoNameLabel = document.createElement('label');
                 const toDoNameInput = document.createElement('input');
-                const toDoDescriptionLabel = document.createElement('label');
-                const toDoDescriptionInput = document.createElement('input');
                 const toDoDueDateLabel = document.createElement('label');
                 const toDoDueDateInput = document.createElement('input');
-                const toDoPriorityLabel = document.createElement('label');
-                const toDoPrioritySelect = document.createElement('select');
-                const toDoPriorityHigh = document.createElement('option');
-                const toDoPriorityMid = document.createElement('option');
-                const toDoPriorityLow = document.createElement('option');
+
                 const todoSubmitButton = document.createElement('input');
 
                 toDoNameLabel.textContent = 'Name:';
@@ -76,13 +68,6 @@ function manageToDo() {
                 toDoNameInput.setAttribute('placeholder', 'Write a task');
                 toDoNameInput.setAttribute('required', '');
                 
-                toDoDescriptionLabel.textContent = 'Description:';
-                toDoDescriptionLabel.setAttribute('for', 'form-description');
-                toDoDescriptionInput.setAttribute('type', 'text');
-                toDoDescriptionInput.setAttribute('id', 'form-description');
-                toDoDescriptionInput.setAttribute('name', 'form-description');
-                toDoDescriptionInput.setAttribute('placeholder', 'Describe your task');
-                toDoDescriptionInput.setAttribute('required', '');
                 
                 toDoDueDateLabel.textContent = 'Due Date:';
                 toDoDueDateLabel.setAttribute('for', 'form-due-date');
@@ -92,22 +77,12 @@ function manageToDo() {
                 toDoDueDateInput.setAttribute('placeholder', 'When is it due?');
                 toDoDueDateInput.setAttribute('required', '');
         
-                toDoPriorityLabel.textContent = 'Priority:';
-                toDoPriorityLabel.setAttribute('for', 'form-priority');
-                toDoPrioritySelect.setAttribute('id', 'form-priority');
-                toDoPrioritySelect.setAttribute('name', 'form-priority');
-                toDoPrioritySelect.setAttribute('placeholder', 'Priority Level');
-                toDoPrioritySelect.setAttribute('required', '');
-                toDoPriorityHigh.setAttribute('value', 'High');
-                toDoPriorityMid.setAttribute('value', 'Mid');
-                toDoPriorityLow.setAttribute('value', 'low');
+
         
                 todoSubmitButton.setAttribute('type', 'submit');
                 todoSubmitButton.setAttribute('value', 'Add');
         
-                toDoPriorityHigh.textContent = 'High';
-                toDoPriorityMid.textContent = 'Mid';
-                toDoPriorityLow.textContent = 'Low';
+
         
                 formLegend.textContent = 'Add ToDo:';
                 exitFormContainer.textContent = 'X';
@@ -123,30 +98,22 @@ function manageToDo() {
                 formFieldSet.appendChild(formLegend);
                 formFieldSet.appendChild(toDoNameLabel);
                 formFieldSet.appendChild(toDoNameInput);
-                formFieldSet.appendChild(toDoDescriptionLabel);
-                formFieldSet.appendChild(toDoDescriptionInput);
                 formFieldSet.appendChild(toDoDueDateLabel);
                 formFieldSet.appendChild(toDoDueDateInput);
-                formFieldSet.appendChild(toDoPriorityLabel);
-                formFieldSet.appendChild(toDoPrioritySelect);
-                toDoPrioritySelect.appendChild(toDoPriorityHigh);
-                toDoPrioritySelect.appendChild(toDoPriorityMid);
-                toDoPrioritySelect.appendChild(toDoPriorityLow);
                 formFieldSet.appendChild(todoSubmitButton);
                 
                 todoSubmitButton.addEventListener('click', function(e) {
                     e.preventDefault();
-                    if (toDoDescriptionInput.value && toDoNameInput.value && toDoDueDateInput.value && toDoPrioritySelect.value) {
+                    if (toDoNameInput.value && toDoDueDateInput.value) {
                         userInputArr.push(toDoNameInput.value);
-                        userInputArr.push(toDoDescriptionInput.value);
                         userInputArr.push(toDoDueDateInput.value);
-                        userInputArr.push(toDoPrioritySelect.value);
                         storageToDo.toDoStorage(storageToDo.storeInputAsObject(userInputArr));
                         displayToDoCard(currentProjectIndex, projectsArr);
                         
                         while (formContainer.firstChild) {
                             formContainer.removeChild(formContainer.lastChild);
                         }
+            
                         toDoFormVisibility = false;
                         userInputArr = [];
                     } 

@@ -1,5 +1,4 @@
 import { navContainer, projectManager } from '../displayNavMenu/displayNavMenu';
-import { projectsArr } from '../manageToDo/manageToDo';
 import './displayToDoCard.css';
 
 
@@ -46,40 +45,63 @@ function displayToDoCard(currentProjectIndex, projectArr) {
             toDoCard.appendChild(checkBox);
             toDoCard.appendChild(cardContentSubContainer);
             cardContentSubContainer.appendChild(cardDueDateAndPriority);
-            cardContentSubContainer.appendChild(cardNameAndDescription);
+            cardContentSubContainer.appendChild(cardNameAndDescription)
+
     
             checkBox.textContent = '✓';
             
-            toDoCard.classList.add('todo-card');
-            checkBox.classList.add('todo-checkbox');
+            toDoCard.classList.add('todo-card', 'todo-card');
+            checkBox.classList.add(`todo-checkbox-${i}`, 'todo-checkbox');
             cardContentSubContainer.classList.add('card-content-subcontainer');
-            cardNameAndDescription.classList.add('card-name-and-description-container');
             cardDueDateAndPriority.classList.add('card-due-date-and-priority');
     
             let j = 0;
 
             for (const property in projectArr[currentProjectIndex].toDos[i]) {
                 const toDoCardContent = document.createElement('div');
-                const todoClassNamesArr = ['todo-name', 'todo-description', 'todo-due-date', 'todo-priority'];
+                const todoClassNamesArr = ['todo-name', 'todo-due-date'];
                 
                 toDoCardContent.classList.add(todoClassNamesArr[j]);
                 
                 toDoCardContent.textContent = projectArr[currentProjectIndex].toDos[i][property];
                 
-                if (j < Object.keys(projectArr[currentProjectIndex].toDos[i]).length - 2) {
+                if (property === 'name') {
                     cardNameAndDescription.appendChild(toDoCardContent);
                     
-                }
-                if (j >= Object.keys(projectArr[currentProjectIndex].toDos[i]).length - 2) {
+                } else {
                     cardDueDateAndPriority.appendChild(toDoCardContent);
                 }
+                
                 j++; 
             }
         }
-
     }
-    
-    
 }
+let completeState = false;
+
+function completeToDo() {
+    window.addEventListener('click', function(e) {
+        if (e.target.innerHTML === '✓') { 
+            const allToDoCards = document.querySelectorAll('.todo-checkbox');
+            allToDoCards.forEach((toDoCheckbox) => {
+                if (e.target.className === toDoCheckbox.className) {
+                    if (!completeState) {
+                        toDoCheckbox.classList.add('completed-checkbox');
+                        toDoCheckbox.parentNode.childNodes[1].childNodes[1].childNodes[0].classList.add('todo-strikethrough');
+                        completeState = true;
+                    } else {
+                        toDoCheckbox.classList.remove('completed-checkbox');
+                        toDoCheckbox.parentNode.childNodes[1].childNodes[1].childNodes[0].classList.remove('todo-strikethrough');
+                        completeState = false;
+                    }
+                }
+
+            });
+        } 
+        
+    });
+}
+
+completeToDo();
 
 export  { displayToDoCard, cardArea, toDoCardAreaMain, toDoCardContainer, selectedProjectHeader} 

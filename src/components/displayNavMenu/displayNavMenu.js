@@ -86,7 +86,10 @@ function projectManager() {
             const customProjectCreationContainer = document.createElement('div');
             const customProject = document.createElement('input');
             const customProjectConfirm = document.createElement('button');
+            const customProjectCancel = document.createElement('button');
+
             customProjectConfirm.textContent = 'Add';
+            customProjectCancel.textContent = 'Cancel';
 
             customProject.setAttribute('type', 'text');
 
@@ -97,6 +100,7 @@ function projectManager() {
             customProjectsContainer.appendChild(customProjectCreationContainer);
             customProjectCreationContainer.appendChild(customProject);
             customProjectCreationContainer.appendChild(customProjectConfirm);
+            customProjectCreationContainer.appendChild(customProjectCancel);
 
             customProjectConfirm.addEventListener('click', function() {
                 currentProject = customProject.value;
@@ -110,7 +114,10 @@ function projectManager() {
                 while (toDoCardContainer.firstChild) {
                     toDoCardContainer.removeChild(toDoCardContainer.lastChild);
                 }
-                
+            });
+
+            customProjectCancel.addEventListener('click', function() {
+                customProjectsContainer.removeChild(customProjectsContainer.lastChild);
             });
         });
     }

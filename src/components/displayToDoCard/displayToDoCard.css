@@ -49,16 +49,12 @@
     margin-left: 20px;
 }
 
-.todo-checkbox:hover {
-    color:rgb(0, 0, 0);
-    background-color:rgb(143, 233, 210);
-}
-
 .card-content-subcontainer {
     display: flex;
     flex-direction: row-reverse;
     justify-content:space-between;
     width: 100%;
+    align-items: center;
 }
 
 .card-name-and-description-container {
@@ -94,4 +90,13 @@
     font-weight: 700;
     font-size: 2rem;
     margin-top: 10px;
+}
+
+.completed-checkbox {
+    background-color:rgb(85, 212, 180);
+    color:rgb(247, 247, 247);
+}
+
+.todo-strikethrough {
+    text-decoration: line-through;
 }
