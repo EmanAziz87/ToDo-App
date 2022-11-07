@@ -1,16 +1,15 @@
+import { displayToDoCard, toDoCardContainer } from '../displayToDoCard/displayToDoCard';
+import { projectsArr, storageToDo } from '../manageToDo/manageToDo';
 import './displayNavMenu.css';
 
 const navContainer = document.createElement('nav');
 const navAddToDoButton = document.createElement('button');
-
-
+let currentProject = 'Today';
 
 function displayNavMenu() {
-    
     navAddToDoButton.textContent = '+';
     navContainer.classList.add('nav-container');
     navAddToDoButton.classList.add('nav-add-todo-button');
-
     navContainer.appendChild(navAddToDoButton);
 }
 
@@ -42,6 +41,11 @@ function projectManager() {
     thisWeekTasks.textContent = 'This Week';
     importantTasks.textContent = 'Important';
 
+    todayTasks.classList.add('project');
+    thisWeekTasks.classList.add('project');
+    importantTasks.classList.add('project');
+
+
     projectContainer.classList.add('project-container');
     defaultProjectsContainer.classList.add('default-projects-container', 'projects');
     customProjectsContainer.classList.add('custom-projects-container', 'projects');
@@ -56,41 +60,68 @@ function projectManager() {
     defaultProjectsContainer.appendChild(importantTasks);
 
     const selectedProjectHeader =  document.querySelector('.selected-project-header');
-    let projectNavButtons = document.querySelectorAll('div.projects > button');
 
 
-    function projectButtons() {
-        projectNavButtons.forEach((button) => {
-            button.addEventListener('click', function() {
-                projectNavButtons = document.querySelectorAll('div.projects > button');
-                selectedProjectHeader.textContent = button.textContent;  
-                console.log(button);    
+    window.addEventListener('click', function(e) {
+        if (e.path[0].className === 'project') {
+            selectedProjectHeader.textContent = e.target.innerHTML;  
+            currentProject = e.target.innerHTML;
+            const currentProjectIndex = projectsArr.findIndex(selectedProject => selectedProject.project === currentProject);
+            while (toDoCardContainer.firstChild) {
+                toDoCardContainer.removeChild(toDoCardContainer.lastChild); 
+            }
+            displayToDoCard(currentProjectIndex, projectsArr);
+        }
+    });
+
+    function addCustomProject() {
+        const addProjectButton = document.createElement('input');
+        addProjectButton.setAttribute('type', 'button');
+        addProjectButton.setAttribute('value', 'Add Project');
+        
+        addProjectButton.classList.add('add-project-button');
+        navContainer.appendChild(addProjectButton);
+
+        addProjectButton.addEventListener('click', function() {
+            const customProjectCreationContainer = document.createElement('div');
+            const customProject = document.createElement('input');
+            const customProjectConfirm = document.createElement('button');
+            customProjectConfirm.textContent = 'Add';
+
+            customProject.setAttribute('type', 'text');
+
+            customProjectCreationContainer.classList.add('project-creation-container');
+
+            customProject.textContent = 'temporary name';
+            customProject.classList.add('project-naming');
+            customProjectsContainer.appendChild(customProjectCreationContainer);
+            customProjectCreationContainer.appendChild(customProject);
+            customProjectCreationContainer.appendChild(customProjectConfirm);
+
+            customProjectConfirm.addEventListener('click', function() {
+                currentProject = customProject.value;
+                const customProjectCreated = document.createElement('button');
+                storageToDo.storeNewProject({project: currentProject, toDos: []});
+                customProjectCreated.classList.add('project');
+                customProjectCreated.textContent = currentProject;
+                selectedProjectHeader.textContent = currentProject
+                customProjectsContainer.removeChild(customProjectsContainer.lastChild);
+                customProjectsContainer.appendChild(customProjectCreated);
+                while (toDoCardContainer.firstChild) {
+                    toDoCardContainer.removeChild(toDoCardContainer.lastChild);
+                }
+                
             });
         });
     }
 
-    function addCustomProject() {
-        const addProjectButton = document.createElement('button');
-        addProjectButton.classList.add('add-project-button');
-        addProjectButton.textContent = 'Add Project';
-        navContainer.appendChild(addProjectButton);
-
-        addProjectButton.addEventListener('click', function() {
-            projectNavButtons = document.querySelectorAll('div.projects > button');
-            const customProject = document.createElement('button');
-            customProject.textContent = 'temporary name';
-            customProjectsContainer.appendChild(customProject);
-        });
-    }
-
-    addCustomProject();
-    projectButtons();
-    
+    addCustomProject();    
 }
 
 export { 
     displayNavMenu,
     navContainer, 
     projectManager,
-    navMenuReappear
+    navMenuReappear,
+    currentProject
  }

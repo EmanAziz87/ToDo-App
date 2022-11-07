@@ -9,18 +9,25 @@ const mainContainer = document.querySelector('#content');
 function header() {
     const headerContainer = document.createElement('header');
     const threeHoriztonalLineIcon = document.createElement('img');
+    const headerTitleContainer = document.createElement('div');
+    const headerTitle = document.createElement('p');
+    
     threeHoriztonalLineIcon.src = svgThreeLines;
+    headerTitle.textContent = 'Todo or NotTodo'
 
     headerContainer.classList.add('header-container');
     threeHoriztonalLineIcon.classList.add('header-menu-icon');
+    headerTitleContainer.classList.add('header-title-container');
+    headerTitle.classList.add('header-title');
+
     mainContainer.appendChild(headerContainer);
     headerContainer.appendChild(threeHoriztonalLineIcon);
+    headerContainer.appendChild(headerTitleContainer);
+    headerTitleContainer.appendChild(headerTitle);
 
     threeHoriztonalLineIcon.addEventListener('click', function() {
         const navContainer = document.querySelector('.nav-container');
-        console.log(navContainer);
         if (!navContainer) {
-            console.log('did we make it')
             navMenuReappear();
             storageToDo.addToDo();
         } else {

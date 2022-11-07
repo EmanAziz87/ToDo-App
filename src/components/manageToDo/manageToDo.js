@@ -1,3 +1,4 @@
+import { currentProject } from "../displayNavMenu/displayNavMenu";
 import { displayToDoCard } from "../displayToDoCard/displayToDoCard";
 import './manageToDo.css';
 
@@ -16,10 +17,11 @@ let projectsArr = [
         toDos: []
     }
 ];
+
+let currentProjectIndex = 0;
 let userInputArr = [];
 
 function manageToDo() {
-    
     function storeInputAsObject(userInputs) {
         const toDoObject = {
             name: userInputs[0],
@@ -30,8 +32,15 @@ function manageToDo() {
         return toDoObject;
     }
 
+    function storeNewProject(projectObject) {
+        projectsArr.push(projectObject);
+        console.log(projectsArr);
+    }
+
     function toDoStorage(toDoObject) {
-        thingsToDo.push(toDoObject);
+        currentProjectIndex = projectsArr.findIndex(selectedProject => selectedProject.project === currentProject);
+        projectsArr[currentProjectIndex].toDos.push(toDoObject);
+        console.log(projectsArr);
     }
 
     function addToDo() {
@@ -45,7 +54,7 @@ function manageToDo() {
                 const exitFormContainer = document.createElement('button');
                 const formFieldSet = document.createElement('fieldset');
                 const formLegend = document.createElement('legend');
-        
+
                 const toDoNameLabel = document.createElement('label');
                 const toDoNameInput = document.createElement('input');
                 const toDoDescriptionLabel = document.createElement('label');
@@ -58,7 +67,6 @@ function manageToDo() {
                 const toDoPriorityMid = document.createElement('option');
                 const toDoPriorityLow = document.createElement('option');
                 const todoSubmitButton = document.createElement('input');
-                
 
                 toDoNameLabel.textContent = 'Name:';
                 toDoNameLabel.setAttribute('for', 'form-name');
@@ -126,20 +134,19 @@ function manageToDo() {
                 toDoPrioritySelect.appendChild(toDoPriorityLow);
                 formFieldSet.appendChild(todoSubmitButton);
                 
-                todoSubmitButton.addEventListener('click', function() {
+                todoSubmitButton.addEventListener('click', function(e) {
+                    e.preventDefault();
                     if (toDoDescriptionInput.value && toDoNameInput.value && toDoDueDateInput.value && toDoPrioritySelect.value) {
                         userInputArr.push(toDoNameInput.value);
                         userInputArr.push(toDoDescriptionInput.value);
                         userInputArr.push(toDoDueDateInput.value);
                         userInputArr.push(toDoPrioritySelect.value);
                         storageToDo.toDoStorage(storageToDo.storeInputAsObject(userInputArr));
-                        displayToDoCard();
+                        displayToDoCard(currentProjectIndex, projectsArr);
                         
                         while (formContainer.firstChild) {
                             formContainer.removeChild(formContainer.lastChild);
                         }
-        
-                        console.log(thingsToDo);
                         toDoFormVisibility = false;
                         userInputArr = [];
                     } 
@@ -155,10 +162,10 @@ function manageToDo() {
         });
     }
 
-    return { toDoStorage, addToDo, storeInputAsObject}
+    return { toDoStorage, addToDo, storeInputAsObject, storeNewProject }
 }
 
 const storageToDo = manageToDo();
 
-export { storageToDo, thingsToDo }
+export { storageToDo, currentProjectIndex, projectsArr }
 
