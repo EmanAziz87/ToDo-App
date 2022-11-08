@@ -24,20 +24,37 @@ function manageToDo() {
     function storeInputAsObject(userInputs) {
         const toDoObject = {
             name: userInputs[0],
-            dueDate: userInputs[1]
+            dueDate: userInputs[1],
+            completed: userInputs[2]
         }
         return toDoObject;
     }
 
     function storeNewProject(projectObject) {
         projectsArr.push(projectObject);
-        console.log(projectsArr);
+    }
+
+    function markAsCompleted(completedToDoName, currentProject) {
+        const findProjectIndex = projectsArr.findIndex(selectedProject => selectedProject.project === currentProject);
+        projectsArr[findProjectIndex].toDos.forEach((toDoObject) => {
+            if (toDoObject.name === completedToDoName) {
+                toDoObject['completed'] = true;
+            }
+        });
+    }
+
+    function changeToIncomplete(incompletedToDoName, currentProject) {
+        const findProjectIndex = projectsArr.findIndex(selectedProject => selectedProject.project === currentProject);
+        projectsArr[findProjectIndex].toDos.forEach((toDoObject) => {
+            if (toDoObject.name === incompletedToDoName) {
+                toDoObject['completed'] = false;
+            }
+        });
     }
 
     function toDoStorage(toDoObject) {
         currentProjectIndex = projectsArr.findIndex(selectedProject => selectedProject.project === currentProject);
         projectsArr[currentProjectIndex].toDos.push(toDoObject);
-        console.log(projectsArr);
     }
 
     function addToDo() {
@@ -106,6 +123,7 @@ function manageToDo() {
                     if (toDoNameInput.value && toDoDueDateInput.value) {
                         userInputArr.push(toDoNameInput.value);
                         userInputArr.push(toDoDueDateInput.value);
+                        userInputArr.push(false);
                         storageToDo.toDoStorage(storageToDo.storeInputAsObject(userInputArr));
                         displayToDoCard(currentProjectIndex, projectsArr);
                         
@@ -128,7 +146,7 @@ function manageToDo() {
         });
     }
 
-    return { toDoStorage, addToDo, storeInputAsObject, storeNewProject }
+    return { toDoStorage, addToDo, storeInputAsObject, storeNewProject, markAsCompleted, changeToIncomplete }
 }
 
 const storageToDo = manageToDo();
