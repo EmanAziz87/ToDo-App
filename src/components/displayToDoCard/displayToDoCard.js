@@ -70,14 +70,14 @@ function displayToDoCard(currentProjectIndex, projectArr) {
                 if (property === 'name') {
                     cardNameAndDescription.appendChild(toDoCardContent);
                     
-                } else {
+                } else if (property === 'dueDate') {
                     cardDueDateAndPriority.appendChild(toDoCardContent);
                 }
-                
                 j++; 
             }
         }
     }
+
 }
 
 function recycleThroughTodos(currentProjectIndex, projectArr) {
@@ -142,20 +142,7 @@ function recycleThroughTodos(currentProjectIndex, projectArr) {
         });
 
     }); 
-    // const allToDoCheckboxes = document.querySelectorAll('.todo-checkbox');
-    // allToDoCheckboxes.forEach((toDoCheckbox) => {
-    //     let toDoName = toDoCheckbox.parentNode.childNodes[1].childNodes[1].childNodes[0].textContent;
-    //     projectArr.forEach((project) => {
-    //         const toDoObject = project.toDos.find(selectedProject => selectedProject.name === toDoName);
-    //         console.log(toDoObject);
-    //         if (project.project === currentProject && toDoObject.name === toDoName && toDoObject.completed) {
-    //             toDoCheckbox.classList.add('completed-checkbox');
-    //             toDoCheckbox.parentNode.childNodes[1].childNodes[1].childNodes[0].classList.add('todo-strikethrough');    
-    //             completeState = true;            
-    //         }
-    //     });
 
-    // }); 
 }
 
 function completeToDo() {

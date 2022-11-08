@@ -59,11 +59,18 @@ function manageToDo() {
 
     function addToDo() {
         const navAddToDoButton = document.querySelector('.nav-add-todo-button');
-        const navContainer = document.querySelector('.nav-container');
         let toDoFormVisibility = false;
         navAddToDoButton.addEventListener('click', () => {
             if (!toDoFormVisibility) {
                 toDoFormVisibility = true;
+                const toDoCardContainer = document.querySelector('.todo-card-container');
+                const toDoCard = document.createElement('div');
+                
+                toDoCardContainer.appendChild(toDoCard);                
+                
+                toDoCard.classList.add('todo-card', 'todo-card');
+
+                ////////////////////
                 const formContainer = document.createElement('form');
                 const exitFormContainer = document.createElement('button');
                 const formFieldSet = document.createElement('fieldset');
@@ -76,7 +83,7 @@ function manageToDo() {
 
                 const todoSubmitButton = document.createElement('input');
 
-                toDoNameLabel.textContent = 'Name:';
+                toDoNameLabel.textContent = 'Task';
                 toDoNameLabel.setAttribute('for', 'form-name');
                 toDoNameInput.setAttribute('type', 'text');
                 toDoNameInput.setAttribute('id', 'form-name');
@@ -85,42 +92,42 @@ function manageToDo() {
                 toDoNameInput.setAttribute('required', '');
                 
                 
-                toDoDueDateLabel.textContent = 'Due Date:';
+                toDoDueDateLabel.textContent = 'Due';
                 toDoDueDateLabel.setAttribute('for', 'form-due-date');
                 toDoDueDateInput.setAttribute('type', 'date');
                 toDoDueDateInput.setAttribute('id', 'form-due-date');
                 toDoDueDateInput.setAttribute('name', 'form-due-date');
                 toDoDueDateInput.setAttribute('placeholder', 'When is it due?');
                 toDoDueDateInput.setAttribute('required', '');
-        
 
-        
                 todoSubmitButton.setAttribute('type', 'submit');
-                todoSubmitButton.setAttribute('value', 'Add');
-        
-
-        
-                formLegend.textContent = 'Add ToDo:';
-                exitFormContainer.textContent = 'X';
+                todoSubmitButton.setAttribute('value', '');
                 
                 formContainer.classList.add('form-container');
                 exitFormContainer.classList.add('exit-form-button');
+                todoSubmitButton.classList.add('todo-submit-button');
                 formFieldSet.classList.add('form-fieldset');
+                toDoNameInput.classList.add('todo-input');
                 
-        
-                navContainer.appendChild(formContainer);
+                toDoCard.appendChild(formContainer);
                 formContainer.appendChild(formFieldSet);
+                formContainer.appendChild(todoSubmitButton);
                 formContainer.appendChild(exitFormContainer);
                 formFieldSet.appendChild(formLegend);
                 formFieldSet.appendChild(toDoNameLabel);
                 formFieldSet.appendChild(toDoNameInput);
                 formFieldSet.appendChild(toDoDueDateLabel);
                 formFieldSet.appendChild(toDoDueDateInput);
-                formFieldSet.appendChild(todoSubmitButton);
+                // const reCheckCurrentProject = document.querySelector('.selected-project-header');
+                // if (currentProject !== reCheckCurrentProject.textContent) {
+                //     toDoFormVisibility = false;
+                // }
+                
                 
                 todoSubmitButton.addEventListener('click', function(e) {
                     e.preventDefault();
                     if (toDoNameInput.value && toDoDueDateInput.value) {
+                        toDoCardContainer.removeChild(toDoCardContainer.lastChild);
                         userInputArr.push(toDoNameInput.value);
                         userInputArr.push(toDoDueDateInput.value);
                         userInputArr.push(false);
@@ -133,14 +140,26 @@ function manageToDo() {
             
                         toDoFormVisibility = false;
                         userInputArr = [];
+                        
                     } 
                 });
 
                 exitFormContainer.addEventListener('click', function() {
+                    toDoCardContainer.removeChild(toDoCardContainer.lastChild);
                     while (formContainer.firstChild) {
                         formContainer.removeChild(formContainer.lastChild);
                     }
                     toDoFormVisibility = false;
+                });
+
+                const resetFormVisibility = document.querySelectorAll('div.project-container > div > button');
+                resetFormVisibility.forEach((project) => {
+                    project.addEventListener('click', function() {
+                        if (project.textContent !== currentProject) {
+                            toDoFormVisibility = false;
+                        }
+                    });
+                    
                 });
             }
         });

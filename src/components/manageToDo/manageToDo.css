@@ -1,3 +1,48 @@
+.form-container {
+    display: flex;  
+    font-weight: 700;  
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+}
+
+.form-fieldset {
+    display: flex; 
+    border-style: none;
+    gap: 10px;
+}
+
 .exit-form-button {
-    
+    font-size: 1.2rem;
+    border-style: none;
+    background-color: rgba(237, 32, 32, 0.484);
+    width: 25px;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+
+.exit-form-button:hover {
+    background-color: rgb(237, 32, 32);
+}
+
+.todo-submit-button {
+    font-size: 1.2rem;
+    border-style: none;
+    background-color: rgba(72, 203, 65, 0.591);
+    width: 25px;
+    border-radius: 20px;
+}
+
+.todo-submit-button:hover {
+    background-color: rgb(72, 203, 65);
+}
+
+.todo-input {
+    border-style: none;
+    font-size: 1.2rem;
+    width: 80%;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    border-radius: 2px;
+    padding-left: 2px;
 }

@@ -28,6 +28,19 @@ function navMenuReappear() {
     projectManager();
 }
 
+function projectHighlighter() {
+    const allProjects = document.querySelectorAll('div.project-container > div > button');
+    allProjects.forEach((project) => {
+        if (project.innerHTML === currentProject) {
+            project.classList.add('selected-project-tab');
+        } else {
+            project.classList.remove('selected-project-tab');
+        }
+    });
+}
+
+
+
 function projectManager() {
     const projectContainer = document.createElement('div');
     const defaultProjectsContainer = document.createElement('div');
@@ -60,6 +73,7 @@ function projectManager() {
     defaultProjectsContainer.appendChild(importantTasks);
 
     const selectedProjectHeader =  document.querySelector('.selected-project-header');
+    projectHighlighter();
 
     
     window.addEventListener('click', function(e) {
@@ -70,6 +84,8 @@ function projectManager() {
             while (toDoCardContainer.firstChild) {
                 toDoCardContainer.removeChild(toDoCardContainer.lastChild); 
             }
+            projectHighlighter();
+            
             // displayToDoCard(currentProjectIndex, projectsArr);
             recycleThroughTodos(currentProjectIndex, projectsArr);
         }
@@ -82,45 +98,61 @@ function projectManager() {
         
         addProjectButton.classList.add('add-project-button');
         navContainer.appendChild(addProjectButton);
-
+        let addProjectProcess = false;
         addProjectButton.addEventListener('click', function() {
-            const customProjectCreationContainer = document.createElement('div');
-            const customProject = document.createElement('input');
-            const customProjectConfirm = document.createElement('button');
-            const customProjectCancel = document.createElement('button');
+            if (!addProjectProcess) {
+                addProjectProcess = true;               
+                const customProjectCreationContainer = document.createElement('div');
+                const customProject = document.createElement('input');
+                const customProjectConfirm = document.createElement('button');
+                const customProjectCancel = document.createElement('button');
+                const addAndCancelContainer = document.createElement('div');
+    
+                customProject.setAttribute('type', 'text');
+    
+                customProjectCreationContainer.classList.add('custom-project-creation-container');
+                customProject.classList.add('custom-project-input');
+                customProjectConfirm.classList.add('custom-project-confirm');
+                customProjectCancel.classList.add('custom-project-cancel');
+                addAndCancelContainer.classList.add('add-and-cancel-container');
+                
+    
+                customProject.textContent = 'temporary name';
+                customProject.classList.add('project-naming');
+    
+                customProjectsContainer.appendChild(customProjectCreationContainer);
+                customProjectCreationContainer.appendChild(customProject);
+                customProjectCreationContainer.appendChild(customProjectConfirm);
+                customProjectCreationContainer.appendChild(addAndCancelContainer);
+                addAndCancelContainer.appendChild(customProjectConfirm);
+                addAndCancelContainer.appendChild(customProjectCancel);
 
-            customProjectConfirm.textContent = 'Add';
-            customProjectCancel.textContent = 'Cancel';
-
-            customProject.setAttribute('type', 'text');
-
-            customProjectCreationContainer.classList.add('project-creation-container');
-
-            customProject.textContent = 'temporary name';
-            customProject.classList.add('project-naming');
-
-            customProjectsContainer.appendChild(customProjectCreationContainer);
-            customProjectCreationContainer.appendChild(customProject);
-            customProjectCreationContainer.appendChild(customProjectConfirm);
-            customProjectCreationContainer.appendChild(customProjectCancel);
-
-            customProjectConfirm.addEventListener('click', function() {
-                currentProject = customProject.value;
-                const customProjectCreated = document.createElement('button');
-                storageToDo.storeNewProject({project: currentProject, toDos: []});
-                customProjectCreated.classList.add('project');
-                customProjectCreated.textContent = currentProject;
-                selectedProjectHeader.textContent = currentProject
-                customProjectsContainer.removeChild(customProjectsContainer.lastChild);
-                customProjectsContainer.appendChild(customProjectCreated);
-                while (toDoCardContainer.firstChild) {
-                    toDoCardContainer.removeChild(toDoCardContainer.lastChild);
-                }
-            });
-
-            customProjectCancel.addEventListener('click', function() {
-                customProjectsContainer.removeChild(customProjectsContainer.lastChild);
-            });
+    
+                customProjectConfirm.addEventListener('click', function() {
+                    if (customProject.value) {
+                        addProjectProcess = false;
+                        addProjectButton.classList.remove('.add-project-button-active');
+                        currentProject = customProject.value;
+                        const customProjectCreated = document.createElement('button');
+                        storageToDo.storeNewProject({project: currentProject, toDos: []});
+                        customProjectCreated.classList.add('project');
+                        customProjectCreated.textContent = currentProject;
+                        selectedProjectHeader.textContent = currentProject
+                        customProjectsContainer.removeChild(customProjectsContainer.lastChild);
+                        customProjectsContainer.appendChild(customProjectCreated);
+                        while (toDoCardContainer.firstChild) {
+                            toDoCardContainer.removeChild(toDoCardContainer.lastChild);
+                        }
+                        projectHighlighter();
+                    }
+                });
+    
+                customProjectCancel.addEventListener('click', function() {
+                    addProjectProcess = false;
+                    addProjectButton.classList.remove('.add-project-button-active');
+                    customProjectsContainer.removeChild(customProjectsContainer.lastChild);
+                });
+            }
         });
     }
 
