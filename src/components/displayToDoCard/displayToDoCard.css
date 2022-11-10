@@ -24,6 +24,7 @@
 }
 
 .todo-card {
+    position: relative;
     margin-top: 10px;
     width: 98%;
     height: 80px;
@@ -99,3 +100,33 @@
 .todo-strikethrough {
     text-decoration: line-through;
 }
+
+.drop-down-container {
+    position: absolute;
+    right: 20px;
+    bottom: 60px;
+    width: 60px;
+    height: 60px;
+    background-color: bisque;
+    display: none;
+    flex-direction: column;
+    
+}
+
+.card-dropdown {
+    height: 50%;
+    border-style: none;
+    background-color: white;
+    font-weight: 700;
+    border: 1px solid black;
+}
+
+.card-dropdown:hover {
+    height: 50%;
+    border-style: none;
+    background-color: rgb(236, 236, 236);
+    font-weight: 700;
+    border: 1px solid black;
+}
+
+
